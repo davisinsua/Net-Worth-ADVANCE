@@ -1,4 +1,4 @@
-Network Calculator
+Net Worth ADVANCE
 ========================
 Created by : [list names]
 
