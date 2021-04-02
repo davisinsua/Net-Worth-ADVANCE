@@ -1,18 +1,23 @@
+(To be completed by who was assigned source code deliverable)
+
 Net Worth ADVANCE
 ========================
-Created by : [list names]
+Created by : Davis Insua, Jakob Guadagno, Casey St Pierre, Jared Hernandez, Henry Thiel
 
-OVERVIEW 
+Source Description 
 ----------------
-temp
+(Complete me)
 
 
-USAGE 
+Build Instructions
 ----------------
-temp
+(Complete me)
 
 
-DEMO  
+Code Organization
 ----------------
-temp
+(Complete me)
 
+Libraries
+----------------
+(Complete me)
