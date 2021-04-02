@@ -28,7 +28,7 @@ public class MainWindow extends Application
    // Create menu buttons
    Button calcNet = new Button("Calculate Net Worth");
    Button genGraph = new Button("Generate Graph");
-   Button genTranscript = new Button("Generate Transcript");
+   Button genRecords = new Button("View Records");
    Button bttnExit = new Button("Exit");
    
    public static void main(String[] args)
@@ -39,9 +39,15 @@ public class MainWindow extends Application
    @Override
    public void start(Stage myStage)
    {
-      // Datafield modify
-      header.setFont(Font.font("Arial", FontWeight.BOLD, 40));
+      // Styleize Header
+      header.setFont(Font.font("Consolas", FontWeight.BOLD, 46));
       header.setTextFill(Color.WHITE);
+      
+      // Stylize Buttons
+      calcNet.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #000000");
+      genGraph.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #000000");
+      genRecords.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #000000");
+      bttnExit.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #000000");
    
       // Stage options
       myStage.setTitle("Net Worth ADVANCE");
@@ -51,12 +57,12 @@ public class MainWindow extends Application
       VBox buttonBox = new VBox();
       buttonBox.setAlignment(Pos.CENTER);
       buttonBox.setSpacing(8);
-      buttonBox.getChildren().addAll(calcNet, genGraph, genTranscript, bttnExit);
+      buttonBox.getChildren().addAll(calcNet, genGraph, genRecords, bttnExit);
       
       // Create mainBox - Vbox that holds the header and buttonBox
       VBox mainBox = new VBox();
       mainBox.setAlignment(Pos.CENTER);
-      mainBox.setSpacing(80);
+      mainBox.setSpacing(100);
       mainBox.getChildren().addAll(header, buttonBox);
       
       // Create root - VBox that holds mainBox and creates background color
@@ -65,20 +71,19 @@ public class MainWindow extends Application
       root.setAlignment(Pos.CENTER);
       root.setStyle("-fx-background-color: black;");
 
-      // Set action for menu buttons
+      /* Set action for menu buttons, display CalcFormWindow */
       calcNet.setOnAction(e->initCalc());
+      // display GraphWindow
+      genGraph.setOnAction(e->initGraph());
+      // display RecordWindow
+      genRecords.setOnAction(e->initRecord());
+      // Exit
       bttnExit.setOnAction(e->Platform.exit());
       
       // Create scene and show it
       Scene scene = new Scene(root, 750, 550);
       myStage.setScene(scene);
       myStage.show();
-   }
-   
-   // Probably don't need this function 
-   public void handleButtonAction()
-   {
-      // :^)
    }
    
    public void initCalc()
@@ -89,11 +94,13 @@ public class MainWindow extends Application
    
    public void initGraph()
    {
-      // Not yet implemented
+      // Display the GraphWindow calling the constructor
+      // GraphWindow window = new GraphWindow();
    }
    
    public void initRecord()
    {
-      // Not yet implemented
+      // Display the RecordWindow by calling the constructor
+      // RecordWindow window = new RecordWindow();
    }
 }
