@@ -34,6 +34,12 @@ public class UserRecord implements java.io.Serializable
 	public Long getTimeRecorded() { return timeRecorded; }
 	
 	/**
+	 * Returns the value of the entry with the given type. To access all entries, iterate over all elements of the UserRecord.FiscalEntryType
+	 * Enum calling getEntryByType for all of them.
+	 */
+	public Double getEntryByType(FiscalEntryType type) { return entries.get(type); }
+	
+	/**
 	 * Adds a fiscal entry of the specified type.
 	 * @param type The type of entry to add.
 	 * @param amount The amount listed for the entry. Positive number indicates asset, negative number indicates liability.
