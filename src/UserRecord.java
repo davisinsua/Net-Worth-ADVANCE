@@ -36,6 +36,8 @@ public class UserRecord implements java.io.Serializable
 	/**
 	 * Returns the value of the entry with the given type. To access all entries, iterate over all elements of the UserRecord.FiscalEntryType
 	 * Enum calling getEntryByType for all of them.
+	 * @param type The FiscalEntryType to return the value of.
+	 * @return The stored value corresponding to the passed type. Returns NULL if the record does not exist.
 	 */
 	public Double getEntryByType(FiscalEntryType type) { return entries.get(type); }
 	
