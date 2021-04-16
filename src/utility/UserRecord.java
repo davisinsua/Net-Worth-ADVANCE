@@ -28,7 +28,8 @@ import utility.UserRecord.FiscalEntryType;
  */
 public class UserRecord implements java.io.Serializable {
     private static final long serialVersionUID = -5995808058749343981L;
-
+    
+    private double netWorth;
     private String recordName;
     private Long timeRecorded;
     private HashMap<FiscalEntryType, Double> entries;
@@ -41,7 +42,30 @@ public class UserRecord implements java.io.Serializable {
     public String getRecordName() {
         return recordName;
     }
-
+    
+    /**
+     * Sets the name of this record. 
+     */
+    public void setRecordName(String recordName) {
+        this.recordName = recordName;
+    }
+    
+   /**
+     * Gets the total net worth value for this record. 
+     * 
+     * @return The netWorth value.
+     */
+    public double getNetWorth() {
+        return netWorth;
+    }
+    
+    /**
+     * Sets the total net worth value for this record. 
+     */
+    public void setNetWorth(double netWorth) {
+        this.netWorth = netWorth;
+    }
+    
     /**
      * Gets the time the record was created, as a Unix timestamp in miliseconds,
      * 
@@ -168,8 +192,31 @@ public class UserRecord implements java.io.Serializable {
     public enum FiscalEntryType {
         checkingAcc("Checking Account", true), savingAcc("Savings Account", true),
         moneyMarketAcc("Money Market Account", true), savingBond("Savings Bonds", true),
-        certDep("Certificate of Deposit", true), lifeInsurance("Life Insurance", true);
-
+        certDep("Certificate of Deposit", true), lifeInsurance("Life Insurance", true),
+        
+        brokerage("Brokerage", true), ira("IRA", true), rIra("Roth IRA", true),
+        k401orb403("401(k) or 403(b)", true), sepIra("SEP-IRA", true),
+        keogh("Keogh or equivalent", true), pension("Pension (vested benefit)", true),
+        annuity("Annuity", true),
+        
+        realEstate("Real estate", true), soleProp("Sole propietorship", true),
+        partnership("Partnership", true), cCorp("C Corporation", true), 
+        sCorp("S Corporation", true), limLiaComp("Limited liability company", true), 
+        bisOther("Other", true),
+        
+        prinHome("Principal Home", true), vacaHome("Vacation Home", true),
+        carsTrucksBoats("Cars, Trucks, Boats", true), homeFurn("Home Furnishings", true), 
+        collectibles("Art, Antiques, Coins, Collectibles", true), jewleryFurs("Jewlery, Furs", true), 
+        UseAssetOther("Other", true),
+        
+        crCard("Credit card balances", false), incTax("Estimated income tax owed", false), 
+        oustBills("Other Outstanding bills", false), homeMortgage("Home mortgage", false), 
+        homeEquityLoan("Home equity loan", false),
+        
+        rentMortgages("Mortgages on rental properties", false), 
+        carLoans("Car loans", false), stuLoans("Student loans", false), 
+        lifePolicy("Life insurance policy loans", false), otherLiab("Other long-term debt", false);
+        
         public String name;
         public boolean isAsset;
 
