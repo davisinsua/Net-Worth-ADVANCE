@@ -119,6 +119,7 @@ public class RecordWindow extends Application {
                 btnViewRecord.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                     Label titleLabel = new Label(rec.getRecordName());
                     Label timeLabel = new Label("Recorded On: " + dateTime);
+                    Label totalNet = new Label("Net Worth: $" + rec.getNetWorth());
 
                     TableView<RecordTableEntry> table = new TableView<>();
                     TableColumn<RecordTableEntry, String> typeCol = new TableColumn<>("Fiscal Entry Name");
@@ -147,7 +148,7 @@ public class RecordWindow extends Application {
 
                     // Creates the VBox for the labels and table
                     VBox vbox = new VBox();
-                    vbox.getChildren().addAll(titleLabel, timeLabel, table);
+                    vbox.getChildren().addAll(titleLabel, timeLabel, totalNet, table);
 
                     // Creates the scene and stage and sets their values
                     Scene tableScene = new Scene(vbox);
@@ -179,4 +180,3 @@ public class RecordWindow extends Application {
         stage.show();
     }
 }
-
