@@ -34,6 +34,7 @@ public class GraphWindow extends JFrame {
         setContentPane(chartPanel);
     }
 
+    //Defines Dataset and sets the data to records
     private DefaultCategoryDataset createDataset() {
 
         String series1 = "Net Worth";
