@@ -9,7 +9,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.RefineryUtilities;
-import utility.UserRecord;
+import src.utility.UserRecord;
 
 import javax.swing.*;
 import java.util.ArrayList;
