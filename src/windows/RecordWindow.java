@@ -51,16 +51,15 @@ public class RecordWindow extends Application {
     /**
      * Returns the number of records in a page, dependent on the window size.
      * 
-     * @TODO Add dependence on window size.
      * @return The maximum number of records in a page.
      */
-    private int itemsPerPage() {
-        return 6;
+    private int itemsPerPage(Stage stage) {
+        return (int) (stage.getHeight() / 100);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        // Intialize user records
+        // Initialize user records
         userRecords = new ArrayList<>();
 
         if (DEBUG) {
@@ -75,27 +74,30 @@ public class RecordWindow extends Application {
         } else {
             // Read records from file
             Files.list(Paths.get("entry")).map(Path::toFile).forEach(file -> {
-                UserRecord r = UserRecord.createRecordFromFile(file.getName());
+                UserRecord r = UserRecord.createRecordFromFile(file);
                 if (r != null) {
                     userRecords.add(r);
                 }
             });
-            ;
         }
 
         // Prevents the window from crashing if there are no records stored
         if (userRecords.size() == 0) {
             Label label = new Label("No Records Saved");
+            label.setTextFill(Color.WHITE);
             VBox box = new VBox(label);
-            box.setStyle("-fx-background-color: black;");
-            Scene scene = new Scene(label, 500, 550);
+            box.setStyle("-fx-background-color:black;");
+            Scene scene = new Scene(box, 500, 550);
             stage.setScene(scene);
             stage.setTitle("History of Records");
             stage.show();
             return;
         }
 
-        pageNav = new Pagination(userRecords.size() / itemsPerPage(), 0);
+        pageNav = new Pagination();
+        pageNav.setPageCount((int) Math.ceil((double) userRecords.size() / itemsPerPage(stage)));
+        stage.heightProperty().addListener((obs, o, n) -> pageNav
+                .setPageCount((int) Math.ceil((double) userRecords.size() / itemsPerPage(stage))));
         pageNav.setStyle("-fx-background-color:black;");
 
         // Uses arcane Java tricks to make unreadable syntax.
@@ -103,12 +105,12 @@ public class RecordWindow extends Application {
         pageNav.setPageFactory(pageIndex -> {
             VBox box = new VBox(10);
 
-            int recordIt = pageIndex * itemsPerPage();
-            int recordMax = recordIt + itemsPerPage();
+            int recordIt = pageIndex * itemsPerPage(stage);
+            int recordMax = Math.min(recordIt + itemsPerPage(stage), userRecords.size());
 
             // Uses a perversion not known to the Ancient Ones to iterate over all elements
-            // within the page range, free of indexes
-            // and bounds checking and readable syntax
+            // within the page range, free of indexes and bounds checking and readable
+            // syntax
             userRecords.subList(recordIt, recordMax).listIterator().forEachRemaining(rec -> {
                 String dateTime = rec.getDateTimeRecorded("MM-dd-yyyy HH:mm:ss");
                 Label transcriptName = new Label(rec.getRecordName() + " | " + dateTime);
@@ -140,9 +142,7 @@ public class RecordWindow extends Application {
                     // Converts the UserRecord to an ObservableList of RecordDisplay objects to fill
                     // the table's values with
                     ObservableList<RecordTableEntry> olist = FXCollections.observableArrayList();
-                    for (FiscalEntryType t : FiscalEntryType.values()) {
-                        olist.add(new RecordTableEntry(t.name, rec.getEntryByType(t)));
-                    }
+                    rec.forEach((t, v) -> olist.add(new RecordTableEntry(t.name, v)));
                     table.setItems(olist);
                     table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
