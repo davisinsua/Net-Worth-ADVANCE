@@ -44,13 +44,12 @@ public class GraphWindow extends JFrame {
 
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        for (String f : Font.getFamilies()) {
-            utility.UserRecord r = utility.UserRecord.createNewRecord(f);
-            for (UserRecord.FiscalEntryType t : UserRecord.FiscalEntryType.values()) {
-                r.addEntry(t, t.isAsset ? 100 * Math.random() : -100 * Math.random());
+        Files.list(Paths.get("entry")).map(Path::toFile).forEach(file -> {
+            UserRecord r = UserRecord.createRecordFromFile(file.getName());
+            if (r != null) {
+                userRecords.add(r);
             }
-            userRecords.add(r);
-        }
+        });
         userRecords.listIterator().forEachRemaining(rec -> {
             String date = rec.getDateRecorded();
             double worth = rec.getNetWorth();
