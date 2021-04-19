@@ -19,8 +19,10 @@ import java.util.Arrays;
 public class GraphWindow extends JFrame {
 
     private static final long serialVersionUID = 1L;
+    private static final boolean DEBUG = false;
+    
 
-    public GraphWindow(String title) {
+    public GraphWindow(String title) throws IOException{
 
         // Create dataset
         JFreeChart lineChart = ChartFactory.createLineChart(
@@ -35,7 +37,7 @@ public class GraphWindow extends JFrame {
     }
 
     //Defines Dataset and sets the data to records
-    private DefaultCategoryDataset createDataset() {
+    private DefaultCategoryDataset createDataset() throws IOException{
 
         String series1 = "Net Worth";
 
@@ -44,12 +46,23 @@ public class GraphWindow extends JFrame {
 
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        Files.list(Paths.get("entry")).map(Path::toFile).forEach(file -> {
-            UserRecord r = UserRecord.createRecordFromFile(file.getName());
-            if (r != null) {
+        if(DEBUG){
+            for (String f : Font.getFamilies()) {
+                UserRecord r = UserRecord.createNewRecord(f);
+                for (UserRecord.FiscalEntryType t : FiscalEntryType.values()) {
+                    r.addEntry(t, t.isAsset ? 100 * Math.random() : -100 * Math.random());
+                }
                 userRecords.add(r);
             }
-        });
+
+        } else{
+            Files.list(Paths.get("entry")).map(Path::toFile).forEach(file -> {
+                UserRecord r = UserRecord.createRecordFromFile(file.getName());
+                if (r != null) {
+                    userRecords.add(r);
+                }
+            });
+        }
         userRecords.listIterator().forEachRemaining(rec -> {
             String date = rec.getDateRecorded();
             double worth = rec.getNetWorth();
@@ -58,7 +71,7 @@ public class GraphWindow extends JFrame {
         return dataset;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
         GraphWindow example = new GraphWindow("Net Worth Over time");
         example.pack();
         example.setSize(600, 400);
