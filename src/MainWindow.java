@@ -104,7 +104,7 @@ public class MainWindow extends Application
      example.setVisible(true);
      }
      catch (Exception e){
-     System.out.println)("Exception Creating GraphWindow...");
+     System.out.println("Exception Creating GraphWindow...");
      }
    }
    
@@ -113,7 +113,7 @@ public class MainWindow extends Application
       // Display the RecordWindow by calling the constructor
       try { RecordWindow window = new RecordWindow();}
       catch(Exception e){
-      System.out.println)("Exception Creating RecordWindow...");
+      System.out.println("Exception Creating RecordWindow...");
       }
       
    }
