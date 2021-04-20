@@ -29,10 +29,10 @@ public class GraphWindow extends JFrame {
 
     public GraphWindow(String title) throws IOException{
 
-        // Create dataset
+        // Create the Dataset, sets dimensions and axis names
         JFreeChart lineChart = ChartFactory.createLineChart(
                 "Net Worth over time",
-                "Date", "Net Worth",
+                "Record Names", "Net Worth",
                 createDataset(),
                 PlotOrientation.VERTICAL,
                 true, true, false);
@@ -41,7 +41,7 @@ public class GraphWindow extends JFrame {
         setContentPane(chartPanel);
     }
 
-    //Defines Dataset and sets the data to records
+    //Defines Dataset and sets the data in records to the graph
     private DefaultCategoryDataset createDataset() throws IOException{
 
         String series1 = "Net Worth";
@@ -51,27 +51,16 @@ public class GraphWindow extends JFrame {
 
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        if(DEBUG){
-            for (String f : Font.getFamilies()) {
-                UserRecord r = UserRecord.createNewRecord(f);
-                for (UserRecord.FiscalEntryType t : FiscalEntryType.values()) {
-                    r.addEntry(t, t.isAsset ? 100 * Math.random() : -100 * Math.random());
-                }
-                userRecords.add(r);
-            }
-
-        } else{
-            Files.list(Paths.get("entry")).map(Path::toFile).forEach(file -> {
+        
+        Files.list(Paths.get("entry")).map(Path::toFile).forEach(file -> {
                 UserRecord r = UserRecord.createRecordFromFile(file.getName());
                 if (r != null) {
                     userRecords.add(r);
                 }
             });
-        }
         userRecords.listIterator().forEachRemaining(rec -> {
             String date = rec.getDateRecorded();
-            double worth = rec.getNetWorth();
-            dataset.addValue(worth, series1, date);
+            dataset.addValue(rec.getNetWorth(), series1, rec.getRecordName());
         });
         return dataset;
     }
