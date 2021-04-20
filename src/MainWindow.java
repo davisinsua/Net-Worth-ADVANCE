@@ -3,6 +3,8 @@
 
 // Import main feature windows, kept in records folder
 import windows.CalcFormWindow;
+import windows.RecordWindow;
+import windows.GraphWindow;
 
 // Other imports
 import javafx.application.Application;
@@ -18,6 +20,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import java.lang.Math;
 import javafx.geometry.*;
+import org.jfree.ui.RefineryUtilities;
 import java.util.ArrayList;
 
 public class MainWindow extends Application
@@ -31,8 +34,7 @@ public class MainWindow extends Application
    Button genRecords = new Button("View Records");
    Button bttnExit = new Button("Exit");
    
-   public static void main(String[] args)
-   {
+   public static void main(String[] args) {
       launch(args);
    }
    
@@ -94,13 +96,25 @@ public class MainWindow extends Application
    
    public void initGraph()
    {
-      // Display the GraphWindow calling the constructor
-      // GraphWindow window = new GraphWindow();
+     try {
+     GraphWindow example = new GraphWindow("Net Worth Over time");
+     example.pack();
+     example.setSize(600, 400);
+     RefineryUtilities.centerFrameOnScreen(example);
+     example.setVisible(true);
+     }
+     catch (Exception e){
+     System.out.println)("Exception Creating GraphWindow...");
+     }
    }
    
    public void initRecord()
    {
       // Display the RecordWindow by calling the constructor
-      // RecordWindow window = new RecordWindow();
+      try { RecordWindow window = new RecordWindow();}
+      catch(Exception e){
+      System.out.println)("Exception Creating RecordWindow...");
+      }
+      
    }
 }
