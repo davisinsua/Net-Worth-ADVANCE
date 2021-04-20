@@ -36,17 +36,14 @@ import utility.UserRecord.FiscalEntryType;
  * @author Jared, Henry
  *
  */
-public class RecordWindow extends Application {
+public class RecordWindow extends Stage {
     // If true, don't read files and instead generate fake records using the font
     // list.
     private static final boolean DEBUG = false;
 
     private Pagination pageNav;
     private ArrayList<UserRecord> userRecords;
-
-    public static void main(String[] args) throws Exception {
-        launch(args);
-    }
+    Stage stage = new Stage();
 
     /**
      * Returns the number of records in a page, dependent on the window size.
@@ -57,8 +54,8 @@ public class RecordWindow extends Application {
         return (int) (stage.getHeight() / 100);
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
+    
+    public RecordWindow() throws Exception {
         // Initialize user records
         userRecords = new ArrayList<>();
 
