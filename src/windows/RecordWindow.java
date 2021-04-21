@@ -121,7 +121,8 @@ public class RecordWindow extends Stage {
                 btnViewRecord.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                     Label titleLabel = new Label(rec.getRecordName());
                     Label timeLabel = new Label("Recorded On: " + dateTime);
-                    Label totalNet = new Label("Net Worth: $" + rec.getNetWorth());
+                    double net = Math.floor(rec.getNetWorth() * 100) / 100;
+                    Label totalNet = new Label("Net Worth: $" + net);
 
                     TableView<RecordTableEntry> table = new TableView<>();
                     TableColumn<RecordTableEntry, String> typeCol = new TableColumn<>("Fiscal Entry Name");
