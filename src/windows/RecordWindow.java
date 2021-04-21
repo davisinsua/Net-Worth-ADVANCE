@@ -70,12 +70,15 @@ public class RecordWindow extends Stage {
             }
         } else {
             // Read records from file
-            Files.list(Paths.get("entry")).map(Path::toFile).forEach(file -> {
-                UserRecord r = UserRecord.createRecordFromFile(file);
-                if (r != null) {
-                    userRecords.add(r);
-                }
-            });
+            Path entry = Paths.get("entry");
+            if(entry.toFile().exists()) {
+                Files.list(entry).map(Path::toFile).forEach(file -> {
+                    UserRecord r = UserRecord.createRecordFromFile(file);
+                    if (r != null) {
+                        userRecords.add(r);
+                    }
+                });
+            }
         }
 
         // Prevents the window from crashing if there are no records stored
