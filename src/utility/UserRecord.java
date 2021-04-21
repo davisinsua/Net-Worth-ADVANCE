@@ -68,6 +68,14 @@ public class UserRecord implements java.io.Serializable {
     public void setNetWorth(double netWorth) {
         this.netWorth = netWorth;
     }
+    
+    /**
+     * Calculates the net worth of the record.
+     */
+    public void calcNetWorth() {
+        this.netWorth = 0;
+        this.forEachFast((e,v) -> this.netWorth += v);
+    }
 
     /**
      * Gets the time the record was created, as a Unix timestamp in miliseconds,
@@ -310,6 +318,7 @@ public class UserRecord implements java.io.Serializable {
             for (FiscalEntryType t : FiscalEntryType.values()) {
                 r.addEntry(t, t.signum() * 100 * rng.nextDouble());
             }
+            r.calcNetWorth();
             if (!r.writeRecordToFile()) {
                 return false;
             }
