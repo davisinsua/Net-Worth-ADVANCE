@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -43,15 +42,15 @@ public class RecordWindow extends Stage {
 
     private Pagination pageNav;
     private ArrayList<UserRecord> userRecords;
-    Stage stage = new Stage();
+    private Stage stage = new Stage();
 
     /**
      * Returns the number of records in a page, dependent on the window size.
      * 
      * @return The maximum number of records in a page.
      */
-    private int itemsPerPage(Stage stage) {
-        return (int) (stage.getHeight() / 100);
+    private int itemsPerPage() {
+        return (int) (this.stage.getHeight() / 100);
     }
 
     
@@ -88,16 +87,16 @@ public class RecordWindow extends Stage {
             VBox box = new VBox(label);
             box.setStyle("-fx-background-color:black;");
             Scene scene = new Scene(box, 500, 550);
-            stage.setScene(scene);
-            stage.setTitle("History of Records");
-            stage.show();
+            this.stage.setScene(scene);
+            this.stage.setTitle("History of Records");
+            this.stage.show();
             return;
         }
 
         pageNav = new Pagination();
-        pageNav.setPageCount((int) Math.ceil((double) userRecords.size() / itemsPerPage(stage)));
-        stage.heightProperty().addListener((obs, o, n) -> pageNav
-                .setPageCount((int) Math.ceil((double) userRecords.size() / itemsPerPage(stage))));
+        pageNav.setPageCount((int) Math.ceil((double) userRecords.size() / itemsPerPage()));
+        this.stage.heightProperty().addListener((obs, o, n) -> pageNav
+                .setPageCount((int) Math.ceil((double) userRecords.size() / itemsPerPage())));
         pageNav.setStyle("-fx-background-color:black;");
 
         // Uses arcane Java tricks to make unreadable syntax.
@@ -105,8 +104,8 @@ public class RecordWindow extends Stage {
         pageNav.setPageFactory(pageIndex -> {
             VBox box = new VBox(10);
 
-            int recordIt = pageIndex * itemsPerPage(stage);
-            int recordMax = Math.min(recordIt + itemsPerPage(stage), userRecords.size());
+            int recordIt = pageIndex * itemsPerPage();
+            int recordMax = Math.min(recordIt + itemsPerPage(), userRecords.size());
 
             // Uses a perversion not known to the Ancient Ones to iterate over all elements
             // within the page range, free of indexes and bounds checking and readable
@@ -154,8 +153,8 @@ public class RecordWindow extends Stage {
                     // Creates the scene and stage and sets their values
                     Scene tableScene = new Scene(vbox);
                     Stage newWindow = new Stage();
-                    newWindow.setX(stage.getX() + 200);
-                    newWindow.setY(stage.getY() + 100);
+                    newWindow.setX(this.stage.getX() + 200);
+                    newWindow.setY(this.stage.getY() + 100);
                     newWindow.setTitle(rec.getRecordName());
                     newWindow.setScene(tableScene);
                     newWindow.show();
@@ -176,8 +175,8 @@ public class RecordWindow extends Stage {
         anchor.getChildren().addAll(pageNav);
         anchor.setStyle("-fx-background-color: black;");
         Scene scene = new Scene(anchor, 500, 550);
-        stage.setScene(scene);
-        stage.setTitle("History of Records");
-        stage.show();
+        this.stage.setScene(scene);
+        this.stage.setTitle("History of Records");
+        this.stage.show();
     }
 }
