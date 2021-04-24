@@ -9,16 +9,13 @@ import java.io.ObjectOutputStream;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-import java.util.TimeZone;
 import java.util.function.BiConsumer;
 
 import javafx.scene.text.Font;
-import utility.UserRecord.FiscalEntryType;
 
 // Net Worth ADVANCE
 // Class UserRecord
@@ -64,17 +61,19 @@ public class UserRecord implements java.io.Serializable {
 
     /**
      * Sets the total net worth value for this record.
+     * 
+     * @param netWorth The net worth of this record.
      */
     public void setNetWorth(double netWorth) {
         this.netWorth = netWorth;
     }
-    
+
     /**
-     * Calculates the net worth of the record.
+     * Calculates the net worth of the record and stores it.
      */
     public void calcNetWorth() {
         this.netWorth = 0;
-        this.forEachFast((e,v) -> this.netWorth += v);
+        this.forEachFast((e, v) -> this.netWorth += v);
     }
 
     /**
@@ -342,8 +341,6 @@ public class UserRecord implements java.io.Serializable {
      * loading features. Crashes the program if a test fails.
      */
     public static void unitTest() {
-        Util.assertsEnabledTest();
-
         System.out.println("Starting UserRecord unit tests:\nCreating empty record");
         UserRecord rec = createNewRecord("TestRecord");
         System.out.println("Same object equate");
@@ -370,10 +367,5 @@ public class UserRecord implements java.io.Serializable {
         assert rec.deleteRecord();
         System.out.println("Deleting again");
         assert !rec.deleteRecord();
-    }
-
-    public static void main(String[] args) {
-        generateRandom(10);
-        //unitTest();
     }
 }
