@@ -18,15 +18,25 @@ presenting all stored data to the user.
 
 Build Instructions
 -------------------
+Building from a source ZIP and GitHub clone are functionally the same, however to make
+sure that your IDE recognizes the project automatically, the correct root directory
+must be selected.
 - Install the latest `Java JDK`
 - Install `JavaFX`
 - Install a `Java IDE`
+### From GitHub Clone:
 - Download the latest source using the below command in `cmd`
 ```
 git clone https://github.com/FPU-Spring-2021-CEN4010/group-project-group-2-s2
 ```
 - Create a new project from existing files, using `group-project-group-2-s2` as the root
-  folder.
+  folder. This folder should contain the `src` and `lib` files, and this file.
+### From Source Download:
+- Download latest source Zip (or zip source from assignment upload)
+- Extract to some folder `folder-name`
+- Create a new project from existing files, using `folder-name` as the root folder. This
+  folder should contain the `src` and `lib` files, and this file.
+### Continue:
 - In the `Java Build Path` add the `JavaFX SDK` as a `Library` and the below JAR files as
   `JARs` to the build path:
   - `lib/jcommon-1.0.0.jar`
@@ -54,7 +64,7 @@ The Utility package contains utility classes used elsewhere in the program.
 #### PriceTableCell
 This class is used by the RecordWindow class to create table cells with money formatting.
 All credit goes to
-[Stack Overflow](https://stackoverflow.com/questions/48552499/accounting-style-table-cell-in-javafx)
+[Stack Overflow](https://stackoverflow.com/questions/48552499/accounting-style-table-cell-in-javafx).
 #### RecordTableEntry
 This is a class used to wrap a `String` and a `Double` together in a way that is
 compatable for a `JavaFX table view`.
